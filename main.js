@@ -89,8 +89,8 @@ function populateDefaultView() {
     // Affiliation
     const affiliationList = document.getElementById('default-affiliation');
     affiliationList.innerHTML = `
-        <li>University of Calgary</li>
-        <li>DANSA Lab</li>
+        <li>${data.profile.institution}</li>
+        <li>${data.profile.lab}</li>
         <li>Research Focus: ${data.profile.focusAreas}</li>
     `;
     
@@ -235,7 +235,7 @@ function populateDefaultView() {
     });
     
     // Footer
-    document.getElementById('default-footer').textContent = `${data.profile.name} © 2025`;
+    document.getElementById('default-footer').textContent = `${data.profile.name} © ${data.profile.copyrightYear}`;
 }
 
 // POPULATE RETRO VIEW
@@ -480,7 +480,7 @@ function populateRetroView() {
     `;
     
     // Footer
-    document.getElementById('retro-footer').textContent = `${data.profile.name} © 2025`;
+    document.getElementById('retro-footer').textContent = `${data.profile.name} © ${data.profile.copyrightYear}`;
 }
 
 // THEME MANAGEMENT
