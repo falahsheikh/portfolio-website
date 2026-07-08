@@ -265,22 +265,6 @@ function populateRetroView() {
         </tr>
     `;
     
-    // Timeline Table
-    const timelineTable = document.getElementById('timeline-retro');
-    const timelineRows = data.timeline.map(t => `
-        <tr>
-            <td>
-                <div class="timeline-event">
-                    <strong>${t.year}</strong> - ${t.event}
-                </div>
-            </td>
-        </tr>
-    `).join('');
-    timelineTable.innerHTML = `
-        <tr><th>Academic Timeline</th></tr>
-        ${timelineRows}
-    `;
-    
     // Experience Table
     const experienceTable = document.getElementById('experience-retro');
     const experienceEntries = data.experience.map(exp => {

@@ -949,12 +949,16 @@ body.retro-dark .navbar,
 body.retro-pink .navbar,
 body.retro-ms93 .navbar {
     background: #E9E9E9;
-    padding: 4px;
+    padding: 4px 12px;
     border: 1px solid #B4BAC0;
     margin-bottom: 10px;
     transition: all 0.3s ease;
-    text-align: center;
-}body.retro-dark .navbar { 
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+}body.retro-dark .navbar {
     background: #30303e; 
     border-color: #4d4d58; 
 }body.retro-pink .navbar { 
@@ -1393,20 +1397,6 @@ body.retro-dark .copy-button.copied,
 body.retro-pink .copy-button.copied,
 body.retro-ms93 .copy-button.copied {
     background-color: #90EE90;
-}body.retro .timeline-event,
-body.retro-dark .timeline-event,
-body.retro-pink .timeline-event,
-body.retro-ms93 .timeline-event {
-    border-left: 3px solid #B4BAC0;
-    padding-left: 10px;
-    margin: 8px 0;
-    transition: all 0.3s ease;
-}body.retro-dark .timeline-event {
-    border-left-color: #4A9CC3;
-}body.retro-pink .timeline-event {
-    border-left-color: #ff0000;
-}body.retro-ms93 .timeline-event {
-    border-left-color: #808080; 
 }body.retro .experience-timeline,
 body.retro-dark .experience-timeline,
 body.retro-pink .experience-timeline,
