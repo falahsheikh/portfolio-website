@@ -664,13 +664,9 @@ function setupEventListeners() {
                     toggleBtn.textContent = `Show less (${totalPubs})`;
                 }
             }
-            // Update asterisk note for visible cards
-            publications.forEach(publication => {
-                if (publication.style.display !== 'none') {
-                    const authors = publication.querySelector('.card-preview').textContent.toLowerCase();
-                    if (authors.includes('*')) hasVisibleAsterisk = true;
-                }
-            });
+            // Restore the note based on the full publication set (matches initial page load)
+            updateSearchNote();
+            return;
         }
 
         if (hasVisibleAsterisk) {
