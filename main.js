@@ -243,7 +243,7 @@ function populateDefaultView() {
     });
     
     // Footer
-    document.getElementById('default-footer').textContent = `${data.profile.name} © ${data.profile.copyrightYear}`;
+    document.getElementById('default-footer').textContent = `${data.profile.name} © ${data.profile.copyrightYear || new Date().getFullYear()}`;
 }
 
 // POPULATE RETRO VIEW
@@ -472,7 +472,7 @@ function populateRetroView() {
     `;
     
     // Footer
-    document.getElementById('retro-footer').textContent = `${data.profile.name} © ${data.profile.copyrightYear}`;
+    document.getElementById('retro-footer').textContent = `${data.profile.name} © ${data.profile.copyrightYear || new Date().getFullYear()}`;
 }
 
 // THEME MANAGEMENT

@@ -877,8 +877,6 @@ body.default-dark .two-section-row > section:last-child {
 }body.default .two-section-row h2,
 body.default-dark .two-section-row h2 {
     margin-bottom: 0;
-    padding-bottom: 0.6rem;
-    border-bottom: 2px solid var(--text-primary);
 }@media (max-width: 768px) {
     body.default .two-section-row,
     body.default-dark .two-section-row {
