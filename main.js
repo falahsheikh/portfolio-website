@@ -211,25 +211,33 @@ function populateDefaultView() {
     
     // Presentations
     const presentationsContainer = document.getElementById('default-presentations');
+    presentationsContainer.className = 'presentations-grid';
     presentationsContainer.innerHTML = '';
-    data.presentations.forEach((pres, index) => {
+    data.presentations.forEach((pres) => {
         const div = document.createElement('div');
         div.className = 'presentation-item';
-        if (index > 0) {
-            div.style.marginTop = '20px';
-        }
-        
+
         const authorsText = pres.authors.map(author => {
             if (author === 'Falah Sheikh') {
                 return `<strong>${author}</strong>`;
             }
             return author;
         }).join(', ');
-        
+
+        // Derive a short type label (e.g. "Poster", "Talk") and a cleaned venue.
+        let type = 'Presentation';
+        let venue = pres.venue;
+        const atIndex = pres.venue.indexOf(' at ');
+        if (atIndex !== -1) {
+            type = pres.venue.slice(0, atIndex).trim();
+            venue = pres.venue.slice(atIndex + 4).replace(/^the\s+/i, '').trim();
+        }
+
         div.innerHTML = `
-            <h4>${pres.title}</h4>
-            <p class="presentation-authors">${authorsText}</p>
-            <p class="presentation-venue">${pres.venue}, ${pres.date}</p>
+            <h3>${pres.title}</h3>
+            <div class="entry-dateline">${type} &middot; ${pres.date}</div>
+            <p class="entry-authors">${authorsText}</p>
+            <p class="entry-venue">${venue}</p>
         `;
         presentationsContainer.appendChild(div);
     });

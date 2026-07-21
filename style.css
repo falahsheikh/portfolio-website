@@ -820,28 +820,80 @@ body.default-dark .timeline-projects li {
     line-height: 1.4;
     margin-bottom: 0.3rem;
     color: var(--text-secondary);
+}body.default .presentations-grid,
+body.default-dark .presentations-grid {
+    margin-top: 1.5rem;
+    columns: 19rem;
+    column-gap: 2.5rem;
+    column-rule: 1px solid var(--border-color);
 }body.default .presentation-item,
 body.default-dark .presentation-item {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    margin: 0 0 1.5rem 0;
+    padding-bottom: 1.4rem;
     border-bottom: 1px solid var(--border-color);
-}body.default .presentation-item:last-child,
-body.default-dark .presentation-item:last-child {
-    border-bottom: none;
-}body.default .presentation-item h4,
-body.default-dark .presentation-item h4 {
-    font-size: 0.95rem;
-    margin-bottom: 0.5rem;
-}body.default .presentation-authors,
-body.default-dark .presentation-authors {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
+}body.default .presentation-item h3,
+body.default-dark .presentation-item h3 {
+    font-size: 1.1rem;
+    margin: 0 0 0.4rem 0;
+}body.default .entry-dateline,
+body.default-dark .entry-dateline {
+    font-size: 0.75rem;
+    color: var(--text-muted);
     margin-bottom: 0.3rem;
-}body.default .presentation-venue,
-body.default-dark .presentation-venue {
+}body.default .entry-authors,
+body.default-dark .entry-authors {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    margin: 0.2rem 0;
+}body.default .entry-venue,
+body.default-dark .entry-venue {
     font-size: 0.8rem;
+    line-height: 1.4;
     color: var(--text-muted);
     font-style: italic;
+    margin: 0.3rem 0 0 0;
+}body.default .two-section-row,
+body.default-dark .two-section-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: start;
+    max-width: 1400px;
+    margin: 1rem auto 0 auto;
+    padding: 0 1.5rem 2rem 1.5rem;
+}body.default .two-section-row .timeline-section,
+body.default-dark .two-section-row .timeline-section {
+    margin-top: 0;
+}body.default .two-section-row > section:first-child,
+body.default-dark .two-section-row > section:first-child {
+    padding-right: 2rem;
+    border-right: 1px solid var(--border-color);
+}body.default .two-section-row > section:last-child,
+body.default-dark .two-section-row > section:last-child {
+    padding-left: 2rem;
+}body.default .two-section-row h2,
+body.default-dark .two-section-row h2 {
+    margin-bottom: 0;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--text-primary);
+}@media (max-width: 768px) {
+    body.default .two-section-row,
+    body.default-dark .two-section-row {
+        grid-template-columns: 1fr;
+    }
+    body.default .two-section-row > section:first-child,
+    body.default-dark .two-section-row > section:first-child {
+        padding-right: 0;
+        border-right: none;
+        margin-bottom: 2.5rem;
+    }
+    body.default .two-section-row > section:last-child,
+    body.default-dark .two-section-row > section:last-child {
+        padding-left: 0;
+    }
 }body.default .modal-overlay,
 body.default-dark .modal-overlay {
     display: none;
