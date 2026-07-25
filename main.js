@@ -190,39 +190,35 @@ function populateDefaultView() {
     
     // Experience
     const experienceContainer = document.getElementById('default-experience');
+    experienceContainer.className = 'ledger-entries';
     experienceContainer.innerHTML = '';
     data.experience.forEach(exp => {
-        const item = document.createElement('div');
-        item.className = 'timeline-item';
-        
-        const projectsList = exp.projects.map(p => `<li>${p}</li>`).join('');
-        
+        const item = document.createElement('article');
+        item.className = 'ledger-entry';
+
+        const projectLines = exp.projects.map(p => `<li>${p}</li>`).join('');
+        // Keep the institution only; the city/country would wrap the line for no gain.
+        const institution = exp.location ? exp.location.split(',')[0].trim() : '';
+        const place = institution
+            ? `<span class="ledger-dot">·</span><span class="ledger-place">${institution}</span>`
+            : '';
+
         item.innerHTML = `
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-                <div class="timeline-period">${exp.period}</div>
-                <h3>${exp.title}</h3>
-                <p class="timeline-org">${exp.organization}</p>
-                <ul class="timeline-projects">${projectsList}</ul>
-            </div>
+            <p class="ledger-when">${enDash(exp.period)}</p>
+            <h3>${exp.title}</h3>
+            <p class="ledger-where">${exp.organization}${place}</p>
+            <ul class="ledger-lines">${projectLines}</ul>
         `;
         experienceContainer.appendChild(item);
     });
-    
+
     // Presentations
     const presentationsContainer = document.getElementById('default-presentations');
-    presentationsContainer.className = 'presentations-grid';
+    presentationsContainer.className = 'ledger-entries';
     presentationsContainer.innerHTML = '';
     data.presentations.forEach((pres) => {
-        const div = document.createElement('div');
-        div.className = 'presentation-item';
-
-        const authorsText = pres.authors.map(author => {
-            if (author === 'Falah Sheikh') {
-                return `<strong>${author}</strong>`;
-            }
-            return author;
-        }).join(', ');
+        const item = document.createElement('article');
+        item.className = 'ledger-entry';
 
         // Derive a short type label (e.g. "Poster", "Talk") and a cleaned venue.
         let type = 'Presentation';
@@ -233,17 +229,31 @@ function populateDefaultView() {
             venue = pres.venue.slice(atIndex + 4).replace(/^the\s+/i, '').trim();
         }
 
-        div.innerHTML = `
+        // The page already carries his name; only spell out authors when there are co-authors.
+        const coAuthors = pres.authors.filter(a => a.replace(/\*/g, '').trim() !== data.profile.name);
+        const authorsLine = coAuthors.length === 0 ? '' : `<p class="ledger-authors">${
+            pres.authors.map(author => {
+                return author === data.profile.name ? `<strong>${author}</strong>` : author;
+            }).join(', ')
+        }</p>`;
+
+        item.innerHTML = `
+            <p class="ledger-when">${pres.date}<span class="ledger-dot">·</span><span class="ledger-kind">${type}</span></p>
             <h3>${pres.title}</h3>
-            <div class="entry-dateline">${type} &middot; ${pres.date}</div>
-            <p class="entry-authors">${authorsText}</p>
-            <p class="entry-venue">${venue}</p>
+            ${authorsLine}
+            <p class="ledger-venue">${enDash(venue)}</p>
         `;
-        presentationsContainer.appendChild(div);
+        presentationsContainer.appendChild(item);
     });
-    
+
     // Footer
     document.getElementById('default-footer').textContent = `${data.profile.name} © ${data.profile.copyrightYear || new Date().getFullYear()}`;
+}
+
+// Normalize a spaced hyphen to an en dash: "Sept. 2025 - Present" -> "Sept. 2025 – Present".
+// Requires whitespace on both sides so hyphenated words are left alone.
+function enDash(text) {
+    return text.replace(/\s+[-–—]\s+/g, ' – ');
 }
 
 // POPULATE RETRO VIEW
