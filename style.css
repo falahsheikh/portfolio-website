@@ -768,129 +768,163 @@ body.default-dark .main-content h2:first-child {
 body.default-dark .main-content p {
     margin-bottom: 1rem;
     line-height: 1.6;
-}body.default .timeline-section,
-body.default-dark .timeline-section {
-    margin-top: 3rem;
-}body.default .timeline,
-body.default-dark .timeline {
-    margin-top: 1.5rem;
+}
+/* ---- Ledger: hanging sideheads in the margin, one hairline spine, and
+   type-only entries for Research Experience and Presentations. Shares the
+   reading measure of the About section so every left edge below the
+   masthead lines up. ---- */
+body.default .ledger-stack,
+body.default-dark .ledger-stack {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 2rem 1.5rem;
+}body.default .ledger,
+body.default-dark .ledger {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    column-gap: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}body.default .ledger + .ledger,
+body.default-dark .ledger + .ledger {
+    margin-top: 3.5rem;
+}body.default .ledger > h2,
+body.default-dark .ledger > h2 {
+    margin: -0.2rem 0 0 0;
+    font-size: 1.4rem;
+    line-height: 1.15;
+    text-align: right;
+    text-wrap: balance;
+}body.default .ledger-entries,
+body.default-dark .ledger-entries {
+    border-left: 1px solid var(--border-color);
+    padding-left: 1.75rem;
+}body.default .ledger-entry,
+body.default-dark .ledger-entry {
     position: relative;
-    padding-left: 2rem;
-}body.default .timeline::before,
-body.default-dark .timeline::before {
+}body.default .ledger-entry + .ledger-entry,
+body.default-dark .ledger-entry + .ledger-entry {
+    margin-top: 2rem;
+}
+/* Bead on the spine, with a ring of page colour so the rule breaks around it */
+body.default .ledger-entry::before,
+body.default-dark .ledger-entry::before {
     content: '';
     position: absolute;
-    left: 0.5rem;
-    top: 0.5rem;
-    bottom: 0.5rem;
-    width: 2px;
-    background: var(--border-color);
-}body.default .timeline-item,
-body.default-dark .timeline-item {
-    position: relative;
-    margin-bottom: 2rem;
-}body.default .timeline-marker,
-body.default-dark .timeline-marker {
-    position: absolute;
-    left: -1.75rem;
-    top: 1.75rem;
-    width: 0.6rem;
-    height: 0.6rem;
+    left: calc(-1.75rem - 3px);
+    top: 0.34rem;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: var(--accent-brown);
-    border: 2px solid var(--cream-bg);
-}body.default .timeline-period,
-body.default-dark .timeline-period {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-bottom: 0.3rem;
-}body.default .timeline-org,
-body.default-dark .timeline-org {
-    font-size: 0.85rem;
+    box-shadow: 0 0 0 3px var(--cream-bg);
+}body.default .ledger-when,
+body.default-dark .ledger-when {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
     color: var(--text-secondary);
-    margin: 0.3rem 0;
-}body.default .timeline-projects,
-body.default-dark .timeline-projects {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-top: 0.5rem;
-}body.default .timeline-projects li,
-body.default-dark .timeline-projects li {
-    font-size: 0.85rem;
-    line-height: 1.4;
-    margin-bottom: 0.3rem;
-    color: var(--text-secondary);
-}body.default .presentations-grid,
-body.default-dark .presentations-grid {
-    margin-top: 1.5rem;
-    columns: 19rem;
-    column-gap: 2.5rem;
-    column-rule: 1px solid var(--border-color);
-}body.default .presentation-item,
-body.default-dark .presentation-item {
-    break-inside: avoid;
-    -webkit-column-break-inside: avoid;
-    margin: 0 0 1.5rem 0;
-    padding-bottom: 1.4rem;
-    border-bottom: 1px solid var(--border-color);
-}body.default .presentation-item h3,
-body.default-dark .presentation-item h3 {
-    font-size: 1.1rem;
-    margin: 0 0 0.4rem 0;
-}body.default .entry-dateline,
-body.default-dark .entry-dateline {
-    font-size: 0.75rem;
+}body.default .ledger-kind,
+body.default-dark .ledger-kind {
+    color: var(--accent-brown);
+}body.default .ledger-dot,
+body.default-dark .ledger-dot {
+    margin: 0 0.5em;
     color: var(--text-muted);
-    margin-bottom: 0.3rem;
-}body.default .entry-authors,
-body.default-dark .entry-authors {
+}body.default .ledger-entry h3,
+body.default-dark .ledger-entry h3 {
+    margin: 0.35rem 0 0 0;
+    font-size: 1.05rem;
+    line-height: 1.4;
+}body.default .ledger-where,
+body.default-dark .ledger-where {
+    margin: 0.2rem 0 0 0;
     font-size: 0.85rem;
-    line-height: 1.4;
+    line-height: 1.5;
     color: var(--text-secondary);
-    margin: 0.2rem 0;
-}body.default .entry-venue,
-body.default-dark .entry-venue {
-    font-size: 0.8rem;
-    line-height: 1.4;
+}body.default .ledger-place,
+body.default-dark .ledger-place {
     color: var(--text-muted);
-    font-style: italic;
+    white-space: nowrap;
+}body.default .ledger-authors,
+body.default-dark .ledger-authors {
+    margin: 0.2rem 0 0 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}body.default .ledger-venue,
+body.default-dark .ledger-venue {
     margin: 0.3rem 0 0 0;
-}body.default .two-section-row,
-body.default-dark .two-section-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    align-items: start;
-    max-width: 1400px;
-    margin: 1rem auto 0 auto;
-    padding: 0 1.5rem 2rem 1.5rem;
-}body.default .two-section-row .timeline-section,
-body.default-dark .two-section-row .timeline-section {
-    margin-top: 0;
-}body.default .two-section-row > section:first-child,
-body.default-dark .two-section-row > section:first-child {
-    padding-right: 2rem;
-    border-right: 1px solid var(--border-color);
-}body.default .two-section-row > section:last-child,
-body.default-dark .two-section-row > section:last-child {
-    padding-left: 2rem;
-}body.default .two-section-row h2,
-body.default-dark .two-section-row h2 {
-    margin-bottom: 0;
-}@media (max-width: 768px) {
-    body.default .two-section-row,
-    body.default-dark .two-section-row {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+}body.default .ledger-lines,
+body.default-dark .ledger-lines {
+    list-style: none;
+    margin: 0.6rem 0 0 0;
+    padding: 0;
+}body.default .ledger-lines li,
+body.default-dark .ledger-lines li {
+    position: relative;
+    padding-left: 1.1rem;
+    margin-top: 0.25rem;
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    line-height: 1.45;
+}body.default .ledger-lines li::before,
+body.default-dark .ledger-lines li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--accent-brown);
+}
+/* ---- Closing plate: art-site banner, cropped to a wide band and set off
+   from the sections above by its own rule. Sits on the wider masthead
+   measure rather than the reading measure, so it brackets the page and
+   reads as its own element. ---- */
+body.default .banner-band,
+body.default-dark .banner-band {
+    max-width: 910px;
+    margin: 4rem auto 0 auto;
+    /* Rule on the element itself, so it matches the footer's rule below */
+    padding: 2.75rem 1.5rem 0 1.5rem;
+    border-top: 1px solid var(--border-color);
+}body.default .banner-band img,
+body.default-dark .banner-band img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 1;
+    object-fit: cover;
+    object-position: center top;
+    border: 1px solid var(--border-color);
+}@media (max-width: 700px) {
+    body.default .ledger,
+    body.default-dark .ledger {
         grid-template-columns: 1fr;
+        row-gap: 1.1rem;
     }
-    body.default .two-section-row > section:first-child,
-    body.default-dark .two-section-row > section:first-child {
-        padding-right: 0;
-        border-right: none;
-        margin-bottom: 2.5rem;
+    body.default .ledger > h2,
+    body.default-dark .ledger > h2 {
+        margin-top: 0;
+        text-align: left;
     }
-    body.default .two-section-row > section:last-child,
-    body.default-dark .two-section-row > section:last-child {
-        padding-left: 0;
+    body.default .ledger-entries,
+    body.default-dark .ledger-entries {
+        padding-left: 1.25rem;
+    }
+    /* A 3:1 crop is a sliver at phone widths — show the whole frame instead */
+    body.default .banner-band img,
+    body.default-dark .banner-band img {
+        aspect-ratio: auto;
+    }
+    body.default .ledger-entry::before,
+    body.default-dark .ledger-entry::before {
+        left: calc(-1.25rem - 3px);
     }
 }body.default .modal-overlay,
 body.default-dark .modal-overlay {
