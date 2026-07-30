@@ -498,7 +498,7 @@ function setTheme(theme) {
     currentTheme = theme;
     document.body.className = theme;
     
-    if (theme === 'default-dark' || theme.startsWith('retro-')) {
+    if (theme === 'default-dark' || theme.startsWith('retro')) {
         document.documentElement.className = theme;
     } else {
         document.documentElement.className = '';
@@ -539,7 +539,7 @@ function initializeTheme() {
             currentTheme = savedTheme;
             document.body.className = savedTheme;
             
-            if (savedTheme === 'default-dark' || savedTheme.startsWith('retro-')) {
+            if (savedTheme === 'default-dark' || savedTheme.startsWith('retro')) {
                 document.documentElement.className = savedTheme;
             }
             

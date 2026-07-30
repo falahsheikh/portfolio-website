@@ -35,14 +35,50 @@ body.default-dark {
     --border-color: #3a3a45;
 }html {
     scroll-behavior: smooth;
+    /* Stop elastic overscroll from rubber-banding past the top/bottom of the
+       document and exposing empty canvas beyond the background. */
+    overscroll-behavior: none;
     background: #E0E0E0;
     min-height: 100%;
     padding: 20px;
     transition: background 0.5s ease;
+}body {
+    overscroll-behavior: none;
 }html.default-dark { background: #0d0d10; }
-html.retro-dark { background: #1a1a20; }
-html.retro-pink { background: #ffafae; }
-html.retro-ms93 { background: #C0C0C0; }
+/* Retro themes: set a base colour, and optionally a tiled background gif via
+   --bg-gif. Themes that leave --bg-gif unset just get the flat colour. */
+html.retro {
+    background-color: #E0E0E0;
+    --bg-gif: url('Gif/clouds.gif');
+    --bg-fade: 0.3;
+}
+html.retro-dark {
+    background-color: #1a1a20;
+    --bg-gif: url('Gif/twinkling_stars.gif');
+    --bg-fade: 0.3;
+}
+html.retro-pink {
+    background-color: #ffafae;
+    --bg-gif: url('Gif/cherry_blossoms.gif');
+    --bg-fade: 0.3;
+}
+html.retro-ms93 { background-color: #C0C0C0; }
+html[class*="retro"] {
+    background-image: var(--bg-gif, none);
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+html[class*="retro"]::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: var(--bg-gif, none);
+    background-repeat: repeat;
+    opacity: var(--bg-fade, 0.3);
+    z-index: -1;
+    pointer-events: none;
+}
 /* ============================================
    DEFAULT STYLE BODY
    ============================================ */
@@ -1867,20 +1903,6 @@ body.retro-ms93 .connections-link:hover .orcid-text {
 }body.retro-pink .copy-button.copied {
     background: #90EE90;
     color: #006400;
-}html.retro-pink { 
-    background: #ffafae url('Gif/cherry_blossoms.gif') repeat fixed center;
-}html.retro-pink::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('Gif/cherry_blossoms.gif');
-    background-repeat: repeat;
-    opacity: 0.3;
-    z-index: -1;
-    pointer-events: none;
 }html.retro-pink::after {
     content: 'To my mother, I will always love you.';
     position: fixed;
