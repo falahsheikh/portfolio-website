@@ -38,6 +38,10 @@ body.default-dark {
     /* Stop elastic overscroll from rubber-banding past the top/bottom of the
        document and exposing empty canvas beyond the background. */
     overscroll-behavior: none;
+    /* Themes have different content heights, so the scrollbar can come and go
+       when you switch. Reserving the gutter keeps the centred body and the
+       fixed switcher from jumping sideways. */
+    scrollbar-gutter: stable;
     background: #E0E0E0;
     min-height: 100%;
     padding: 20px;
@@ -97,6 +101,10 @@ body.default-dark {
     border: 1px solid var(--border-color);
     position: relative;
     z-index: 1;
+    /* Colour only. Never transition `all` here: the themes disagree on
+       font-size and line-height, and animating those reflows the whole page
+       on every theme change. */
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
 }body.default h1, body.default h2, body.default h3, body.default h4,
 body.default-dark h1, body.default-dark h2, body.default-dark h3, body.default-dark h4 {
     font-family: var(--font-serif);
@@ -137,7 +145,10 @@ body.retro-ms93 {
     padding: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     border: 1px solid #B4BAC0;
-    transition: all 0.5s ease;
+    /* See the note on body.default: colour-only transition, otherwise the
+       13px/1.3 retro metrics animate out of the 14px/1.5 default ones and the
+       page visibly resettles for half a second. */
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
     position: relative;
     z-index: 1;
 }body.retro-dark {
@@ -169,6 +180,16 @@ body.retro-ms93 {
         left: 50%;
         transform: translateX(-50%);
     }
+}/* The switcher is the one control that outlives a theme change, so its box is
+   defined once here and every theme may only repaint it. Pinning line-height
+   matters: without it the menu rows inherit each theme's body line-height and
+   the options slide under the cursor between switches. */
+.theme-button {
+    line-height: 16px;
+}
+.theme-option {
+    line-height: 1.5;
+    padding: 10px 16px;
 }body.default .theme-button,
 body.default-dark .theme-button {
     background: var(--cream-light);
@@ -297,7 +318,6 @@ body.default-dark .theme-dropdown {
     }
 }body.default .theme-option,
 body.default-dark .theme-option {
-    padding: 10px 16px;
     cursor: pointer;
     transition: background 0.2s;
     border-bottom: 1px solid var(--border-color);
@@ -344,10 +364,9 @@ body.retro-dark .theme-option,
 body.retro-pink .theme-option,
 body.retro-ms93 .theme-option {
     display: block;
-    padding: 8px 16px;
     text-decoration: none;
     border-bottom: 1px solid #B4BAC0;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     font-size: 13px;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     cursor: pointer;
@@ -2322,24 +2341,17 @@ body.retro-ms93 .nav-button {
     position: relative;
     font-family: Verdana, Arial, Helvetica, sans-serif;
 }@media screen and (max-width: 768px) {
-    
-    body.retro .theme-switcher,
-    body.retro-dark .theme-switcher,
-    body.retro-pink .theme-switcher,
-    body.retro-ms93 .theme-switcher {
-        bottom: 40px; 
-        left: 50%;
-        transform: translateX(calc(-50% - 80px)); 
-        top: auto;
-        right: auto;
-    }
+
+    /* The switcher stays centred at the bottom in every theme — it must not
+       move out from under the finger that just tapped it. The retro-only nav
+       stacks above it instead of sitting beside it. */
     body.retro .floating-nav,
     body.retro-dark .floating-nav,
     body.retro-pink .floating-nav,
     body.retro-ms93 .floating-nav {
-        bottom: 20px; 
+        bottom: 66px;
         left: 50%;
-        transform: translateX(calc(-50% + 80px)); 
+        transform: translateX(-50%);
     }
     body.retro .button-container,
     body.retro-dark .button-container,
