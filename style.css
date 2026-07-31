@@ -49,39 +49,64 @@ body.default-dark {
 }body {
     overscroll-behavior: none;
 }html.default-dark { background: #0d0d10; }
-/* Retro themes: set a base colour, and optionally a tiled background gif via
-   --bg-gif. Themes that leave --bg-gif unset just get the flat colour. */
+/* Retro themes: a flat base colour on <html>, plus one tiled wallpaper layer.
+   The wallpaper is painted exactly once, by the fixed ::before below. Setting
+   background-image on <html> as well double-exposes it: the root background
+   propagates to the canvas and sits at full opacity under the faded pseudo
+   copy, and because the two are separate paint layers an animated tile runs
+   out of phase between them — a stationary still with a ghost drifting under
+   it. One layer, one phase.
+
+   Wallpapers default to full opacity — these are the patterns' own colours.
+   Turn --bg-opacity down to let the base colour show through and mute a tile.
+   The base colour is also what shows before the image loads, and behind the
+   parts of a tile that are actually transparent (the cherry blossoms).
+
+   --bg-tile      the pattern (unset -> flat colour only)
+   --bg-tile-size repeat size; unset means the file's native pixel size
+   --bg-opacity   1 = the tile's own colours, 0 = base colour only
+   --bg-smooth    `pixelated` for pixel-art tiles, `auto` for photographic ones */
 html.retro {
-    background-color: #E0E0E0;
-    --bg-gif: url('Gif/clouds.gif');
-    --bg-fade: 0.3;
+    background-color: #DCE9F2;
+    /* 56x28 16-colour tile, drawn at native size and left unsmoothed so the
+       scallops stay crisp instead of blurring to mint on a HiDPI screen. */
+    --bg-tile: url('Gif/scales.png');
+    --bg-smooth: pixelated;
 }
 html.retro-dark {
-    background-color: #1a1a20;
-    --bg-gif: url('Gif/twinkling_stars.gif');
-    --bg-fade: 0.3;
+    background-color: #14141a;
+    /* One talavera tile, shrunk from 350px so the gutters read as a tiled wall
+       rather than one giant motif. */
+    --bg-tile: url('Gif/tiles.png');
+    --bg-tile-size: 104px 103px;
+    /* Dial this to taste: 1 is the tile's full colour, lower values sink it
+       into the #14141a base. Around 0.55 still reads as colour; 0.3 goes
+       properly dim. */
 }
 html.retro-pink {
     background-color: #ffafae;
-    --bg-gif: url('Gif/cherry_blossoms.gif');
-    --bg-fade: 0.3;
+    /* The only tile with real transparency: petals over the base pink. */
+    --bg-tile: url('Gif/cherry_blossoms.gif');
 }
-html.retro-ms93 { background-color: #C0C0C0; }
-html[class*="retro"] {
-    background-image: var(--bg-gif, none);
-    background-repeat: repeat;
-    background-attachment: fixed;
-    background-position: center;
+html.retro-ms93 {
+    background-color: #C0C0C0;
+    /* Morris honeysuckle at half its native repeat, so a full motif still
+       fits in the gutter beside the 950px content column. */
+    --bg-tile: url('Gif/flowers.png');
+    --bg-tile-size: 300px 265px;
 }
 html[class*="retro"]::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: var(--bg-gif, none);
-    background-repeat: repeat;
-    opacity: var(--bg-fade, 0.3);
     z-index: -1;
     pointer-events: none;
+    background-image: var(--bg-tile, none);
+    background-repeat: repeat;
+    background-position: center;
+    background-size: var(--bg-tile-size, auto);
+    image-rendering: var(--bg-smooth, auto);
+    opacity: var(--bg-opacity, 1);
 }
 /* ============================================
    DEFAULT STYLE BODY
