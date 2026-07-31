@@ -13,7 +13,37 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/Favicon/favicon-16x16.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="style.css?v=20260730f">
+    <!-- Runs before the first paint, and must stay inline and un-deferred to do
+         so. Stamps the saved theme on <html> and starts the wallpaper download
+         straight away. Previously the theme class was only applied by main.js on
+         DOMContentLoaded: the browser painted the default grey, then discovered
+         --bg-tile, and only then began fetching it. -->
+    <script>
+    (function () {
+        var TILES = {
+            'retro':      'Gif/scales.png',
+            'retro-dark': 'Gif/tiles.webp',
+            'retro-pink': 'Gif/cherry_blossoms.webp',
+            'retro-ms93': 'Gif/flowers.webp'
+        };
+        var theme;
+        try { theme = localStorage.getItem('theme'); } catch (e) { return; }
+        // 'default' wants an unclassed <html>, which is already the case.
+        if (!theme || !/^(default-dark|retro(-dark|-pink|-ms93)?)$/.test(theme)) return;
+        document.documentElement.className = theme;
+
+        var tile = TILES[theme];
+        if (!tile) return;
+        // A CSS background image is only fetched once an element using it gets
+        // styled. Preloading here starts the request during head parsing instead.
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = tile;
+        document.head.appendChild(link);
+    })();
+    </script>
+    <link rel="stylesheet" href="style.css?v=20260731a">
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body class="default">
@@ -246,7 +276,8 @@
     </div>
 
     <!-- RETRO CONTENT (DYNAMICALLY POPULATED) -->
-    <div class="retro-content" style="display: none;">
+    <!-- Visibility is set in style.css from the <html> theme class, not inline. -->
+    <div class="retro-content">
         
         <div class="floating-nav" id="floatingNavRetro">
             <div class="desktop-nav">
@@ -326,6 +357,6 @@
         </div>
     </div>
 
-    <script src="main.js?v=20260730c"></script>
+    <script src="main.js?v=20260731a"></script>
 </body>
 </html>

@@ -77,7 +77,7 @@ html.retro-dark {
     background-color: #14141a;
     /* One talavera tile, shrunk from 350px so the gutters read as a tiled wall
        rather than one giant motif. */
-    --bg-tile: url('Gif/tiles.png');
+    --bg-tile: url('Gif/tiles.webp');
     --bg-tile-size: 104px 103px;
     /* Dial this to taste: 1 is the tile's full colour, lower values sink it
        into the #14141a base. Around 0.55 still reads as colour; 0.3 goes
@@ -86,13 +86,13 @@ html.retro-dark {
 html.retro-pink {
     background-color: #ffafae;
     /* The only tile with real transparency: petals over the base pink. */
-    --bg-tile: url('Gif/cherry_blossoms.gif');
+    --bg-tile: url('Gif/cherry_blossoms.webp');
 }
 html.retro-ms93 {
     background-color: #C0C0C0;
     /* Morris honeysuckle at half its native repeat, so a full motif still
        fits in the gutter beside the 950px content column. */
-    --bg-tile: url('Gif/flowers.png');
+    --bg-tile: url('Gif/flowers.webp');
     --bg-tile-size: 300px 265px;
 }
 html[class*="retro"]::before {
@@ -108,6 +108,14 @@ html[class*="retro"]::before {
     image-rendering: var(--bg-smooth, auto);
     opacity: var(--bg-opacity, 1);
 }
+/* Which of the two views is visible follows the <html> theme class, so the
+   right one is painted on the first frame. This used to be inline `display`
+   set from main.js on DOMContentLoaded, which meant a saved retro theme
+   showed the default view until the script had fetched, parsed and run. */
+.retro-content { display: none; }
+.default-content { display: block; }
+html[class*="retro"] .default-content { display: none; }
+html[class*="retro"] .retro-content { display: block; }
 /* ============================================
    DEFAULT STYLE BODY
    ============================================ */
