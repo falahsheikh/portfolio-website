@@ -504,18 +504,13 @@ function setTheme(theme) {
         document.documentElement.className = '';
     }
     
-    const defaultContent = document.querySelector('.default-content');
-    const retroContent = document.querySelector('.retro-content');
-    
-    if (theme === 'default' || theme === 'default-dark') {
-        defaultContent.style.display = 'block';
-        retroContent.style.display = 'none';
-    } else {
-        defaultContent.style.display = 'none';
-        retroContent.style.display = 'block';
+    // Which view shows follows the <html> class set above; see style.css. Setting
+    // `display` inline here too would win over that rule and strand the view on
+    // first load, before this function has ever run.
+    if (theme.startsWith('retro')) {
         setTimeout(checkNavbarVisibility, 100);
     }
-    
+
     document.querySelectorAll('.theme-option').forEach(option => {
         option.classList.remove('active');
     });
@@ -539,19 +534,14 @@ function initializeTheme() {
             currentTheme = savedTheme;
             document.body.className = savedTheme;
             
+            // The inline script in index.html already put this on <html> before
+            // the first paint. Repeated here so the two stay in step if that
+            // script is ever removed, and because it is cheap.
             if (savedTheme === 'default-dark' || savedTheme.startsWith('retro')) {
                 document.documentElement.className = savedTheme;
             }
-            
-            const defaultContent = document.querySelector('.default-content');
-            const retroContent = document.querySelector('.retro-content');
-            
-            if (savedTheme === 'default' || savedTheme === 'default-dark') {
-                defaultContent.style.display = 'block';
-                retroContent.style.display = 'none';
-            } else {
-                defaultContent.style.display = 'none';
-                retroContent.style.display = 'block';
+
+            if (savedTheme.startsWith('retro')) {
                 setTimeout(checkNavbarVisibility, 100);
             }
         }
