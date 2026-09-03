@@ -1,362 +1,158 @@
-<!-- Code (Retro) by Falah Sheikh -->
-<!-- Default theme inspired by Saffron Huang's https://saffronhuang.com/ -->
-<!-- Last update: 04/14/2026 -->
- 
+<!-- Falah Sheikh — falahsheikh.com
+     One HTML file. No build step, no stylesheet file, no data layer, no theme
+     switch. Everything below the <style> block is plain semantic HTML — there
+     is not a single class attribute on the page, so the markup is the
+     structure and the CSS only has to say how each element behaves.
+     Light and dark follow the reader's system setting. No colour is used
+     anywhere: the page is black on white, and dark mode inverts it.
+     The old multi-theme, JavaScript-rendered version is kept in archive/. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Falah Sheikh</title>
-    <link rel="icon" type="image/x-icon" href="/Favicon/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/Favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/Favicon/favicon-16x16.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Runs before the first paint, and must stay inline and un-deferred to do
-         so. Stamps the saved theme on <html> and starts the wallpaper download
-         straight away. Previously the theme class was only applied by main.js on
-         DOMContentLoaded: the browser painted the default grey, then discovered
-         --bg-tile, and only then began fetching it. -->
-    <script>
-    (function () {
-        var TILES = {
-            'retro':      'Gif/scales.png',
-            'retro-dark': 'Gif/tiles.webp',
-            'retro-pink': 'Gif/cherry_blossoms.webp',
-            'retro-ms93': 'Gif/flowers.webp'
-        };
-        var theme;
-        try { theme = localStorage.getItem('theme'); } catch (e) { return; }
-        // 'default' wants an unclassed <html>, which is already the case.
-        if (!theme || !/^(default-dark|retro(-dark|-pink|-ms93)?)$/.test(theme)) return;
-        document.documentElement.className = theme;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Falah Sheikh</title>
+<meta name="description" content="Falah Sheikh — machine learning and large language model research at the University of Calgary, with work in health, HCI and data visualization.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/x-icon" href="/Favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/Favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/Favicon/favicon-16x16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-        var tile = TILES[theme];
-        if (!tile) return;
-        // A CSS background image is only fetched once an element using it gets
-        // styled. Preloading here starts the request during head parsing instead.
-        var link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = tile;
-        document.head.appendChild(link);
-    })();
-    </script>
-    <link rel="stylesheet" href="style.css?v=20260731a">
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
-<body class="default">
-    
-    <!-- CENTRALIZED DATA STRUCTURE - EDIT ONLY HERE -->
-    <script id="siteData" type="application/json">
-    {
-        "profile": {
-            "name": "Falah Sheikh",
-            "title": "Research Scientist",
-            "image": "images/profile.jpeg",
-            "bioShort": [
-                "Hi there! I'm a researcher, developer, artist, and writer.",
-                "I study machine learning and large language model (LLM) systems at the University of Calgary, focusing on model behavior and reliability, with growing work in health, human-computer interaction (HCI), and data visualization.",
-                "My work explores why these systems succeed or fail, and how to design tools and visualizations that help people make sense of them in high-stakes settings."
-            ],
-            "bioLong": [
-                "I'm Falah. I'm an incoming Master's student in Computer Science at the <a href=\"https://www.ucalgary.ca/\" target=\"_blank\">University of Calgary</a>, where I'll be joining the <a href=\"https://fatemerajabi.github.io/HealthVisFutures/\" target=\"_blank\">HealthVisFutures Lab</a> under <a href=\"https://profiles.ucalgary.ca/fateme-rajabiyazdi/\" target=\"_blank\">Dr. Fateme Rajabiyazdi</a> to work on AI, data visualization and human-centered computing for health.",
-                "I got into ML through computational astronomy. As an undergrad in the <a href=\"https://dansalab.cpsc.ucalgary.ca/\" target=\"_blank\">DANSA Lab</a> with <a href=\"https://profiles.ucalgary.ca/reda-elhajj/\" target=\"_blank\">Dr. Reda Alhajj</a> and <a href=\"https://profiles.ucalgary.ca/jon-george-rokne/\" target=\"_blank\">Dr. Jon George Rokne</a>, I worked on the first CNN-based method for dating lunar surfaces from visual imagery, published in <a href=\"https://www.nature.com/srep/\" target=\"_blank\">Nature Scientific Reports</a>, which is also where I learned that the interesting problems in applied ML rarely come pre-packaged as benchmarks.",
-                "Most recently, I've been studying hallucination behavior in large language models, where small shifts in prompt phrasing turn out to produce order-of-magnitude shifts in error rates.",
-                "Before that, most of my work was in medical AI which involved building interpretable classifiers for early Alzheimer's detection from MRI, with an emphasis on the kind of explainability a clinician can actually use, published in <a href=\"https://www.mdpi.com/journal/diagnostics\" target=\"_blank\">MDPI Diagnostics</a> and the <a href=\"https://www.spiedigitallibrary.org/journals/journal-of-medical-imaging\" target=\"_blank\">SPIE Journal of Medical Imaging</a>.",
-                "That interest in making complex information usable for the people who actually rely on it is what I'm carrying into my graduate work, where I'll focus on AI and visual tools that help patients and clinicians make difficult medical decisions.",
-                "When I'm not doing research, I write about science, technology, and my experience in research on <a href=\"https://falahsheikh.substack.com/\" target=\"_blank\">Substack</a>, <a href=\"https://falahsheikh.com/artsite/art.html\" target=\"_blank\" class=\"multi-phrase-link\">make art<span class=\"link-comma\">,</span> curate photography<span class=\"link-comma\">,</span> write poems</a>, and build <a href=\"https://tensalabs.com/\" target=\"_blank\">tools and projects that come out of my research</a>."
-            ],
-            "institution": "University of Calgary",
-            "lab": "HealthVisFutures Lab, Data and Network Sciences & Applications (DANSA) Lab",
-            "focusAreas": "Machine Learning, AI, HCI, Data Visualization",
-            "copyrightYear": "",
-            "affiliation": "University of Calgary",
-            "researchField": "Computer Science"
-        },
-        "links": [
-            {"text": "University Email", "url": "mailto:sheikhfalah.sheikhha@ucalgary.ca", "email": "sheikhfalah.sheikhha@ucalgary.ca"},
-            {"text": "Personal Email", "url": "mailto:falah.h.sheikh@gmail.com", "email": "falah.h.sheikh@gmail.com"},
-            {"text": "ORCID iD", "url": "https://orcid.org/0009-0003-8770-6806", "display": "0009-0003-8770-6806"},
-            {"text": "Google Scholar", "url": "https://scholar.google.com/citations?view_op=list_works&hl=en&user=JzjNeIkAAAAJ"},
-            {"text": "LinkedIn", "url": "https://www.linkedin.com/in/falah-sheikh-3289b018b/"},
-            {"text": "GitHub", "url": "https://github.com/falahsheikh"},
-            {"text": "X (Twitter)", "url": "https://x.com/falahsx"},
-            {"text": "Substack", "url": "https://substack.com/@falahsheikh?"},
-            {"text": "Art", "url": "./artsite/art.html"},
-            {"text": "Tensa", "url": "https://falahsheikh.github.io/TENSA_Solutions/#"}
-        ],
-        "awards": [
-            {
-                "name": "Alberta Innovates Summer Research Studentship",
-                "amount": "",
-                "description": "Awarded competitive funding for a 16-week independent research project on efficient and interpretable AI models for early Alzheimer's diagnosis"
-            },
-            {
-                "name": "Community Mental Health and Well-Being Strategy Award",
-                "amount": "",
-                "description": "Awarded competitive research award for outstanding research presentation on utilizing AI for early Alzheimer's detection"
-            },
-            {
-                "name": "SPIE Medical Imaging 2026 Student Conference Support",
-                "amount": "",
-                "description": "Competitive student conference support awarded by SPIE to present an accepted poster “NeuroXAI: Lightweight explainable early Alzheimer's detection for resource-constrained clinical settings” at SPIE Medical Imaging 2026."
-            }
-        ],
-        "publications": [
-            {
-            "featured": true,
-            "authors": ["Falah Sheikh", "Ahmed Al Marouf", "Reda Alhajj", "Jon George Rokne"],
-            "title": "NeuroXAI: Lightweight Explainable Early Alzheimer’s Detection for Resource-Constrained Clinical Settings",
-            "venue": "SPIE Medical Imaging (Proceedings Volume 13930: Imaging Informatics)",
-            "year": "2026",
-            "url": "https://doi.org/10.1117/12.3088200",
-            "equalContribution": false,
-            "abstract": "Dementia refers to a spectrum of clinical conditions characterized by impairments in memory, language, and cognitive function. Alzheimer's Disease (AD) is the most common cause of dementia and it accounted for 60–70% of the estimated 57 million cases worldwide as of 2021. The exact pathology of this neurodegenerative condition is not fully understood. While it is currently incurable, progression to more critical stages can be slowed, and early diagnosis is crucial to alleviate and manage some of its symptoms. Contemporary diagnostic practices hinder early detection due to the high costs and inaccessibility of advanced neuroimaging tools and specialists, particularly for populations with resource-constrained clinical settings. This paper addresses this challenge by developing and evaluating computationally efficient lightweight deep learning models, MobileNetV2 and EfficientNetV2B0, for early AD detection from 2D slices sourced from standard structural magnetic resonance imaging (MRI). For the challenging multi-class task of distinguishing between Cognitively Normal (CN), Early Mild Cognitive Impairment (EMCI), and Late Mild Cognitive Impairment (LMCI), our best model, EfficientNetV2B0, achieved 88.0% mean accuracy across a 5-fold stratified cross-validation (std = 1.0%). To enhance clinical interpretability and build trust, we integrated explainability methods, Grad-CAM++ and Guided Grad-CAM++, to visualize the anatomical basis for the models' predictions. This work delivers an accessible and interpretable neuroimaging tool to support early AD diagnosis and extend expert-level capabilities to routine clinical practice."
-            },
-            {
-                "featured": true,
-                "authors": ["Falah Sheikh", "Ahmed Al Marouf", "Jon George Rokne", "Reda Alhajj"],
-                "title": "Lightweight Deep Learning Models with Explainable AI for Early Alzheimer’s Detection from Standard MRI Scans",
-                "venue": "MDPI Diagnostics",
-                "year": "2025",
-                "url": "https://www.mdpi.com/2075-4418/15/21/2709",
-                "equalContribution": false,
-                "abstract": "Dementia refers to a spectrum of clinical conditions characterized by impairments in memory, language, and cognitive function. Alzheimer's Disease (AD) is the most common cause of dementia and it accounted for 60–70% of the estimated 57 million cases worldwide as of 2021. The exact pathology of this neurodegenerative condition is not fully understood. While it is currently incurable, progression to more critical stages can be slowed, and early diagnosis is crucial to alleviate and manage some of its symptoms. Contemporary diagnostic practices hinder early detection due to the high costs and inaccessibility of advanced neuroimaging tools and specialists, particularly for populations with resource-constrained clinical settings. This paper addresses this challenge by developing and evaluating computationally efficient lightweight deep learning models, MobileNetV2 and EfficientNetV2B0, for early AD detection from 2D slices sourced from standard structural magnetic resonance imaging (MRI). For the challenging multi-class task of distinguishing between Cognitively Normal (CN), Early Mild Cognitive Impairment (EMCI), and Late Mild Cognitive Impairment (LMCI), our best model, EfficientNetV2B0, achieved 88.0% mean accuracy across a 5-fold stratified cross-validation (std = 1.0%). To enhance clinical interpretability and build trust, we integrated explainability methods, Grad-CAM++ and Guided Grad-CAM++, to visualize the anatomical basis for the models' predictions. This work delivers an accessible and interpretable neuroimaging tool to support early AD diagnosis and extend expert-level capabilities to routine clinical practice."
-            },
-            {
-                "authors": ["Zaid Nissar*", "Falah Sheikh*", "Ahmed Al Marouf", "Jon George Rokne", "Reda Alhajj"],
-                "title": "Automated Lunar Age Detection through Determining the Day of the Synodic Month using Convolutional Neural Networks",
-                "venue": "Nature Scientific Reports",
-                "year": "2025",
-                "url": "https://www.nature.com/articles/s41598-025-18165-w",
-                "equalContribution": true,
-                "abstract": "This paper introduces an image classification-based technique for determining the moon's age in a synodic month from a lunar picture. Before this study, no image classification-based approach has been applied for this purpose. Historically, mathematical methods have been employed for this determination, dating back to the Babylonian era. Our approach utilizes CNNs (Convolutional Neural Networks) to analyze lunar images. We utilized a pre-trained ResNet18 architecture for transfer learning, leveraging its pre-trained weights to adapt to the new lunar dataset. The dataset was collected from Nasa's moon phase and liberation website using the requests and selenium libraries. Finally, we trained and evaluated different models using accuracy metrics and confusion matrices. While experimenting in different experimental setup, the highest accuracy obtained in our study is 82.74%."
-            }
-        ],
-        "currentResearch": [
-            "Lexico-Syntactic Triggers of Language Model Hallucinations"
-        ],
-        "presentations": [
-            {
-                "title": "NeuroXAI: Lightweight Explainable Early Alzheimer's Detection for Resource-Constrained Clinical Settings",
-                "authors": ["Falah Sheikh"],
-                "venue": "Poster at the SPIE Medical Imaging - Imaging Informatics Conference, Vancouver, BC",
-                "date": "February 2026",
-                "presenter": "Falah Sheikh"
-            },
-            
-            {
-                "title": "Lightweight Deep Learning Models with Explainable AI for Early Alzheimer’s Detection from Standard MRI Scans",
-                "authors": ["Falah Sheikh"],
-                "venue": "Poster at the University of Calgary Students’ Union Undergraduate Research Symposium, Calgary, AB",
-                "date": "November 2025",
-                "presenter": "Falah Sheikh"
-            },
-            {
-                "title": "Lightweight Deep Learning Models with Explainable AI for Early Alzheimer’s Detection from Standard MRI Scans",
-                "authors": ["Falah Sheikh"],
-                "venue": "Poster at the Celebration of Undergraduate Research Experiences, Calgary, AB",
-                "date": "September 2025",
-                "presenter": "Falah Sheikh"
-            }
-        ],
-        "experience": [
-            {
-                "title": "Undergraduate AI Researcher",
-                "organization": "Data and Network Sciences & Applications Lab",
-                "location": "University of Calgary, Calgary, AB, Canada",
-                "period": "Sept. 2025 - Present",
-                "projects": [
-                    "Lexico-Syntactic Triggers of Language Model Hallucinations"
-                ]
-            },
-            {
-                "title": "Undergraduate Machine Learning Researcher",
-                "organization": "Data and Network Sciences & Applications Lab",
-                "location": "University of Calgary, Calgary, AB, Canada",
-                "period": "Jan. 2025 - Sept. 2025",
-                "projects": [
-                    "Deep Learning Models with Explainable AI for Early Alzheimer's Detection",
-                    "NeuroXAI: Lightweight Explainable Early Alzheimer's Detection"
-                ]
-            },
-            {
-                "title": "Undergraduate Machine Learning Researcher",
-                "organization": "Data and Network Sciences & Applications Lab",
-                "location": "University of Calgary, Calgary, AB, Canada",
-                "period": "May 2024 - Jan. 2025",
-                "projects": [
-                    "Automated Lunar Age Detection using Convolutional Neural Networks"
-                ]
-            }
-        ]
+<style>
+:root {
+    color-scheme: light dark;
+    --canvas: #e0e0e0;   /* the ground the page sits on */
+    --page:   #ffffff;
+    --ink:    #1a1a1a;
+    --faint:  #6a6a6a;
+    --line:   #dcdcdc;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --canvas: #0a0a0b;
+        --page:   #151517;
+        --ink:    #e6e6e6;
+        --faint:  #9a9a9e;
+        --line:   #313136;
     }
-    </script>
+}
 
-    <div class="theme-switcher">
-        <button class="theme-button" onclick="toggleThemeDropdown()">Switch Style</button>
-        <div class="theme-dropdown" id="themeDropdown">
-            <div class="theme-option" onclick="setTheme('default')">Default</div>
-            <div class="theme-option" onclick="setTheme('default-dark')">Default Dark</div>
-            <div class="theme-option" onclick="setTheme('retro')">Retro</div>
-            <div class="theme-option" onclick="setTheme('retro-dark')">Retro Dark</div>
-            <div class="theme-option" onclick="setTheme('retro-pink')">Retro Pink</div>
-            <div class="theme-option" onclick="setTheme('retro-ms93')">Retro MS93</div>
-        </div>
+* { box-sizing: border-box; }
+
+html { background: var(--canvas); padding: 20px; }
+
+body {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 2.25rem;
+    background: var(--page);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    font: 15px/1.65 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+h1, h2, h3 { font-family: 'Crimson Text', Georgia, serif; font-weight: 600; line-height: 1.25; margin: 0; }
+h1 { font-size: 2.23rem; } /* tuned so "Falah Sheikh" sets to the portrait's exact width */
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1rem; }
+
+p, ul { margin: 0.75rem 0; }
+a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+img { display: block; max-width: 100%; height: auto; }
+
+/* Masthead: identity, about, and the reference rail */
+header { display: grid; grid-template-columns: 12rem minmax(0, 1fr) 11rem; gap: 2.5rem; align-items: start; }
+header img { margin: 1.25rem 0; }
+header h3 { margin-top: 1.5rem; }
+header h3:first-child { margin-top: 0; }
+ul { list-style: none; padding: 0; }
+header ul { font-size: 0.85rem; }
+header li { margin: 0.4rem 0; }
+
+/* Sections, each opened by a rule */
+section li { margin: 0.9rem 0; }
+
+
+@media (max-width: 860px) {
+    html { padding: 0; }
+    body { padding: 1.5rem; border: 0; box-shadow: none; }
+    header { grid-template-columns: 1fr; gap: 1.5rem; }
+    header img { max-width: 12rem; }
+}
+</style>
+
+<!-- The only script on the page: the Google Analytics tag. Delete these five
+     lines for a page that runs no JavaScript at all. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GJVRHMC2LR"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-GJVRHMC2LR');
+</script>
+</head>
+
+<body>
+
+<header>
+
+    <div>
+        <h1>Falah Sheikh</h1>
+        <img src="images/profile.jpeg" alt="Falah Sheikh" width="400" height="400">
+
+        <h3>Affiliation</h3>
+        <ul>
+            <li>Interactions Lab</li>
+            <li>University of Calgary</li>
+            <li>Machine Learning, AI, HCI, Data Visualization</li>
+        </ul>
     </div>
 
-    <!-- DEFAULT CONTENT (DYNAMICALLY POPULATED) -->
-    <div class="default-content">
-        <div class="three-column-layout">
-            <div class="bio-column">
-                <h1 id="default-name"></h1>
-                <img id="default-image" src="" alt="">
-                <div class="bio-short" id="default-bio-short"></div>
-                <a href="#about" class="bio-toggle">More about me</a>
-            </div>
-
-            <div class="featured-column">
-                <h2>Research Publications</h2>
-                
-                <div class="search-row">
-                    <button class="toggle-btn" id="togglePubsBtn">Show more</button>
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search publications...">
-                    </div>
-                </div>
-                <div class="search-note" id="searchNote">*: Equal contribution</div>
-                
-                <div class="featured-writing" id="publicationsContainer"></div>
-                <div class="scroll-indicator" id="scrollIndicator"><span>scroll to see all publications</span></div>                
-                
-                <div class="current-research-section">
-                    <h2>Current Research</h2>
-                    <ul class="current-research-list" id="default-current-research"></ul>
-                </div>
-            </div>
-
-            <div class="links-column">
-                <h3>Links</h3>
-                <ul id="default-links"></ul>
-
-                <h3>Awards</h3>
-                <ul id="default-awards"></ul>
-
-                <h3>Affiliation</h3>
-                <ul id="default-affiliation"></ul>
-            </div>
-        </div>
-
-        <div class="main-content">
-            <h2 id="about">About</h2>
-            <div id="default-bio-long"></div>
-        </div>
-
-        <div class="ledger-stack">
-            <section class="ledger">
-                <h2>Research Experience</h2>
-                <div class="ledger-entries" id="default-experience"></div>
-            </section>
-
-            <section class="ledger">
-                <h2>Presentations</h2>
-                <div class="ledger-entries" id="default-presentations"></div>
-            </section>
-        </div>
-
-        <div class="banner-band">
-            <img src="./artsite/banner/banner.webp" alt="Painting detail of a figure reaching down through radiating light" width="1100" height="550" loading="lazy">
-        </div>
-
-        <footer>
-            <p id="default-footer"></p>
-        </footer>
+    <div>
+        <h2>About</h2>
+        <p>I'm a Master's student in Computer Science at the <a href="https://www.ucalgary.ca/" target="_blank">University of Calgary</a>, in the <a href="https://ilab.cpsc.ucalgary.ca/" target="_blank">Interactions Lab</a> under <a href="https://profiles.ucalgary.ca/fateme-rajabiyazdi/" target="_blank">Dr. Fateme Rajabiyazdi</a>, working on AI and human-centered data visualization for health.</p>
+        <p>Right now I'm studying when and why language models hallucinate. Small changes in how a question is phrased can move error rates by an order of magnitude, and I'm working out which changes matter and why.</p>
+        <p>Before that I was in the <a href="https://dansalab.cpsc.ucalgary.ca/" target="_blank">DANSA Lab</a> with <a href="https://profiles.ucalgary.ca/reda-elhajj/" target="_blank">Dr. Reda Alhajj</a> and <a href="https://profiles.ucalgary.ca/jon-george-rokne/" target="_blank">Dr. Jon George Rokne</a>. I worked on interpretable models for early Alzheimer's detection from MRI, aiming for explanations a clinician could actually act on, and on a CNN method for dating lunar surfaces from images. What carries across is making a system's behavior legible to the people who have to rely on it.</p>
+        <p>When I'm not doing research, I write about science, technology, and my experience in research on <a href="https://falahsheikh.substack.com/" target="_blank">Substack</a>, <a href="./artsite/art.html" target="_blank">make art, curate photography, write poems</a>, and build <a href="https://tensalabs.com/" target="_blank">tools and projects that come out of my research</a>.</p>
     </div>
 
-    <!-- RETRO CONTENT (DYNAMICALLY POPULATED) -->
-    <!-- Visibility is set in style.css from the <html> theme class, not inline. -->
-    <div class="retro-content">
-        
-        <div class="floating-nav" id="floatingNavRetro">
-            <div class="desktop-nav">
-                <button class="nav-button" onclick="toggleDesktopNavRetro()">////</button>
-                <div class="nav-dropdown desktop-dropdown" id="desktopNavDropdownRetro">
-                    <a href="#profile-retro" onclick="closeDesktopNavRetro()">Profile</a>
-                    <a href="#experience-retro" onclick="closeDesktopNavRetro()">Research Experience</a>
-                    <a href="#current-retro" onclick="closeDesktopNavRetro()">Current Research</a>
-                    <a href="#publications-retro" onclick="closeDesktopNavRetro()">Publications</a>
-                    <a href="#presentations-retro" onclick="closeDesktopNavRetro()">Presentations</a>
-                    <a href="#awards-retro" onclick="closeDesktopNavRetro()">Awards</a>
-                    <a href="#connections-retro" onclick="closeDesktopNavRetro()">Connect</a>
-                    <a href="#codebase-retro" onclick="closeDesktopNavRetro()">Code Bases</a>
-                </div>
-            </div>
-            
-            <div class="mobile-nav">
-                <button class="nav-button" onclick="toggleMobileNavRetro()">////</button>
-                <div class="nav-dropdown mobile-dropdown" id="mobileNavDropdownRetro">
-                    <a href="#profile-retro" onclick="closeMobileNavRetro()">Profile</a>
-                    <a href="#experience-retro" onclick="closeMobileNavRetro()">Research Experience</a>
-                    <a href="#current-retro" onclick="closeMobileNavRetro()">Current Research</a>
-                    <a href="#publications-retro" onclick="closeMobileNavRetro()">Publications</a>
-                    <a href="#presentations-retro" onclick="closeMobileNavRetro()">Presentations</a>
-                    <a href="#awards-retro" onclick="closeMobileNavRetro()">Awards</a>
-                    <a href="#connections-retro" onclick="closeMobileNavRetro()">Connect</a>
-                    <a href="#codebase-retro" onclick="closeMobileNavRetro()">Code Bases</a>
-                </div>
-            </div>
-        </div>
+    <aside>
+        <h3>Links</h3>
+        <ul>
+            <li><a href="mailto:sheikhfalah.sheikhha@ucalgary.ca">University Email</a></li>
+            <li><a href="mailto:falah.h.sheikh@gmail.com">Personal Email</a></li>
+            <li><a href="https://orcid.org/0009-0003-8770-6806" target="_blank">ORCID iD</a></li>
+            <li><a href="https://scholar.google.com/citations?view_op=list_works&amp;hl=en&amp;user=JzjNeIkAAAAJ" target="_blank">Google Scholar</a></li>
+            <li><a href="https://www.linkedin.com/in/falah-sheikh-3289b018b/" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/falahsheikh" target="_blank">GitHub</a></li>
+            <li><a href="https://x.com/falahsx" target="_blank">X (Twitter)</a></li>
+            <li><a href="https://substack.com/@falahsheikh?" target="_blank">Substack</a></li>
+            <li><a href="./artsite/art.html" target="_blank">Art</a></li>
+            <li><a href="https://falahsheikh.github.io/TENSA_Solutions/#" target="_blank">Tensa</a></li>
+        </ul>
 
-        <div class="header">
-            <h1 id="retro-name"></h1>
-        </div>
+        <h3>Awards</h3>
+        <ul>
+            <li>Alberta Innovates Summer Research Studentship</li>
+            <li>Community Mental Health and Well-Being Strategy Award</li>
+        </ul>
+    </aside>
 
-        <div class="navbar">
-            <a href="#profile-retro">Profile</a> |
-            <a href="#experience-retro">Research Experience</a> |
-            <a href="#current-retro">Current Research</a> | 
-            <a href="#publications-retro">Publications</a> | 
-            <a href="#presentations-retro">Presentations</a> |
-            <a href="#awards-retro">Awards</a> |
-            <a href="#connections-retro">Connect</a> |
-            <a href="#codebase-retro">Code Bases</a> 
-        </div>
+</header>
 
-        <table class="forumtable" id="profile-retro"></table>
-        <table class="forumtable" id="experience-retro"></table>
-        <table class="forumtable" id="current-retro"></table>
-        <table class="forumtable" id="publications-retro"></table>
-        <table class="forumtable" id="presentations-retro"></table>
-        <table class="forumtable" id="awards-retro"></table>
-        <table class="forumtable" id="connections-retro"></table>
-        <table class="forumtable" id="codebase-retro"></table>
+<section id="publications">
+    <h2>Publications</h2>
+    <ul>
+        <li>NeuroXAI: Lightweight Explainable Early Alzheimer's Detection for Resource-Constrained Clinical Settings<br><strong>Falah Sheikh</strong>, Ahmed Al Marouf, Reda Alhajj, Jon George Rokne. <em>SPIE Medical Imaging (Proceedings Volume 13930: Imaging Informatics)</em>, 2026. <a href="https://doi.org/10.1117/12.3088200" target="_blank">Paper</a></li>
+        <li>Lightweight Deep Learning Models with Explainable AI for Early Alzheimer's Detection from Standard MRI Scans<br><strong>Falah Sheikh</strong>, Ahmed Al Marouf, Jon George Rokne, Reda Alhajj. <em>MDPI Diagnostics</em>, 2025. <a href="https://www.mdpi.com/2075-4418/15/21/2709" target="_blank">Paper</a></li>
+        <li>Automated Lunar Age Detection through Determining the Day of the Synodic Month using Convolutional Neural Networks<br>Zaid Nissar, <strong>Falah Sheikh</strong>, Ahmed Al Marouf, Jon George Rokne, Reda Alhajj. <em>Nature Scientific Reports</em>, 2025. <a href="https://www.nature.com/articles/s41598-025-18165-w" target="_blank">Paper</a></li>
+    </ul>
+</section>
 
-        <div class="footer" id="retro-footer"></div>
-    </div>
-
-    <!-- MODALS -->
-    <div class="modal-overlay" id="abstractModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Abstract</h3>
-                <button class="modal-close" onclick="closeModal()">×</button>
-            </div>
-            <div class="modal-body" id="abstractContent"></div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="abstractModalRetro">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-close" onclick="closeModalRetro()">✕</span>
-                <h3>Abstract</h3>
-            </div>
-            <div class="modal-body" id="abstractContentRetro"></div>
-        </div>
-    </div>
-
-    <script src="main.js?v=20260731a"></script>
 </body>
 </html>
