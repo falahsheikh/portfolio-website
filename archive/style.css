@@ -70,14 +70,14 @@ html.retro {
     background-color: #DCE9F2;
     /* 56x28 16-colour tile, drawn at native size and left unsmoothed so the
        scallops stay crisp instead of blurring to mint on a HiDPI screen. */
-    --bg-tile: url('Gif/scales.png');
+    --bg-tile: url('../Gif/scales.png');
     --bg-smooth: pixelated;
 }
 html.retro-dark {
     background-color: #14141a;
     /* One talavera tile, shrunk from 350px so the gutters read as a tiled wall
        rather than one giant motif. */
-    --bg-tile: url('Gif/tiles.webp');
+    --bg-tile: url('../Gif/tiles.webp');
     --bg-tile-size: 104px 103px;
     /* Dial this to taste: 1 is the tile's full colour, lower values sink it
        into the #14141a base. Around 0.55 still reads as colour; 0.3 goes
@@ -86,13 +86,13 @@ html.retro-dark {
 html.retro-pink {
     background-color: #ffafae;
     /* The only tile with real transparency: petals over the base pink. */
-    --bg-tile: url('Gif/cherry_blossoms.webp');
+    --bg-tile: url('../Gif/cherry_blossoms.webp');
 }
 html.retro-ms93 {
     background-color: #C0C0C0;
     /* Morris honeysuckle at half its native repeat, so a full motif still
        fits in the gutter beside the 950px content column. */
-    --bg-tile: url('Gif/flowers.webp');
+    --bg-tile: url('../Gif/flowers.webp');
     --bg-tile-size: 300px 265px;
 }
 html[class*="retro"]::before {
