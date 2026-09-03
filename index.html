@@ -3,8 +3,9 @@
      switch. Everything below the <style> block is plain semantic HTML — there
      is not a single class attribute on the page, so the markup is the
      structure and the CSS only has to say how each element behaves.
-     Light and dark follow the reader's system setting. No colour is used
-     anywhere: the page is black on white, and dark mode inverts it.
+     Light and dark follow the reader's system setting. The page itself sets
+     no colour — black on white, inverted for dark — and links are left at the
+     browser's own default, so they look like links anywhere.
      The old multi-theme, JavaScript-rendered version is kept in archive/. -->
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +62,7 @@ h2 { font-size: 1.3rem; }
 h3 { font-size: 1rem; }
 
 p, ul { margin: 0.75rem 0; }
-a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+a { text-decoration: underline; text-underline-offset: 2px; } /* colour left to the browser: link blue, visited purple, adapted to the ground by color-scheme */
 a:hover { text-decoration-thickness: 2px; }
 img { display: block; max-width: 100%; height: auto; }
 
@@ -78,11 +79,42 @@ header li { margin: 0.4rem 0; }
 section li { margin: 0.9rem 0; }
 
 
+/* Narrow screens: the three columns stack, and the masthead — name,
+   portrait, affiliation — sets itself down the centre like a title page.
+   No dividing rules: white space does the separating. */
 @media (max-width: 860px) {
     html { padding: 0; }
-    body { padding: 1.5rem; border: 0; box-shadow: none; }
-    header { grid-template-columns: 1fr; gap: 1.5rem; }
-    header img { max-width: 12rem; }
+    body { padding: 2rem 1.5rem 2.75rem; border: 0; box-shadow: none; }
+
+    header { grid-template-columns: 1fr; gap: 2rem; }
+
+    header > div:first-child { text-align: center; padding-bottom: 0.5rem; }
+    header > div:first-child h3 { margin-top: 1.4rem; }
+    header img { max-width: 11rem; margin: 1.4rem auto 0; }
+    header ul { font-size: 0.9rem; }
+
+    /* One readable measure for the whole page, so a tablet doesn't stretch
+       the prose to 95 characters. The cap goes on the grid container, not on
+       its items: auto margins on a grid item make it shrink to its content
+       and drift off the common left edge. */
+    header, section { max-width: 34rem; margin-left: auto; margin-right: auto; }
+
+    /* Prose justifies, so the column has two clean edges against the centred
+       masthead above it. Hyphenation keeps the word spacing from opening up. */
+    header p { text-align: justify; hyphens: auto; }
+
+    /* The rail keeps its list — one link per line, flush left with the prose
+       above it, exactly as on the wide layout; only its column moves. */
+    aside li { margin: 0.5rem 0; }
+
+    section { margin-top: 2.25rem; }
+    section li { margin: 1.1rem 0; }
+}
+
+@media (max-width: 460px) {
+    body { padding: 1.6rem 1.15rem 2.25rem; }
+    h1 { font-size: 1.95rem; }
+    header img { max-width: 9.5rem; }
 }
 </style>
 
@@ -116,8 +148,7 @@ gtag('config', 'G-GJVRHMC2LR');
     <div>
         <h2>About</h2>
         <p>I'm a Master's student in Computer Science at the <a href="https://www.ucalgary.ca/" target="_blank">University of Calgary</a>, in the <a href="https://ilab.cpsc.ucalgary.ca/" target="_blank">Interactions Lab</a> under <a href="https://profiles.ucalgary.ca/fateme-rajabiyazdi/" target="_blank">Dr. Fateme Rajabiyazdi</a>, working on AI and human-centered data visualization for health.</p>
-        <p>Right now I'm studying when and why language models hallucinate. Small changes in how a question is phrased can move error rates by an order of magnitude, and I'm working out which changes matter and why.</p>
-        <p>Before that I was in the <a href="https://dansalab.cpsc.ucalgary.ca/" target="_blank">DANSA Lab</a> with <a href="https://profiles.ucalgary.ca/reda-elhajj/" target="_blank">Dr. Reda Alhajj</a> and <a href="https://profiles.ucalgary.ca/jon-george-rokne/" target="_blank">Dr. Jon George Rokne</a>. I worked on interpretable models for early Alzheimer's detection from MRI, aiming for explanations a clinician could actually act on, and on a CNN method for dating lunar surfaces from images. What carries across is making a system's behavior legible to the people who have to rely on it.</p>
+        <p>As an undergraduate I worked in the <a href="https://dansalab.cpsc.ucalgary.ca/" target="_blank">DANSA Lab</a> with <a href="https://profiles.ucalgary.ca/reda-elhajj/" target="_blank">Dr. Reda Alhajj</a> and <a href="https://profiles.ucalgary.ca/jon-george-rokne/" target="_blank">Dr. Jon George Rokne</a>. I studied when and why language models hallucinate, where small changes in how a question is phrased can move error rates by an order of magnitude. I also built interpretable models for early Alzheimer's detection from MRI, aiming for explanations a clinician could actually act on, and a CNN method for dating lunar surfaces from images. What carries across is making a system's behavior legible to the people who have to rely on it.</p>
         <p>When I'm not doing research, I write about science, technology, and my experience in research on <a href="https://falahsheikh.substack.com/" target="_blank">Substack</a>, <a href="./artsite/art.html" target="_blank">make art, curate photography, write poems</a>, and build <a href="https://tensalabs.com/" target="_blank">tools and projects that come out of my research</a>.</p>
     </div>
 
