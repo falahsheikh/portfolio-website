@@ -77,6 +77,7 @@ header h3:first-child { margin-top: 0; }
 ul { list-style: none; padding: 0; }
 header ul { font-size: 0.85rem; }
 header li { margin: 0.4rem 0; }
+header aside a[href^="mailto:"] { white-space: nowrap; font-size: 0.79rem; } /* the address sets on one line: at the rail's own 0.85rem it runs 9px past the 11rem column, so this one line is set a step smaller rather than widening the rail */
 
 /* Sections, each opened by a rule */
 section li { margin: 0.9rem 0; }
@@ -95,6 +96,7 @@ section li { margin: 0.9rem 0; }
     header > div:first-child h3 { margin-top: 1.4rem; }
     header img { max-width: 11rem; margin: 1.4rem auto 0; }
     header ul { font-size: 0.9rem; }
+    header aside a[href^="mailto:"] { font-size: inherit; } /* the rail is full width here, so the address needs no shrinking */
 
     /* One readable measure for the whole page, so a tablet doesn't stretch
        the prose to 95 characters. The cap goes on the grid container, not on
@@ -158,7 +160,7 @@ gtag('config', 'G-GJVRHMC2LR');
     <aside>
         <h3>Links</h3>
         <ul>
-            <li><a href="mailto:falah.h.sheikh@gmail.com">Email</a></li>
+            <li><a href="mailto:falah.h.sheikh@gmail.com">falah.h.sheikh [at] gmail.com</a></li>
             <li><a href="https://orcid.org/0009-0003-8770-6806" target="_blank">ORCID iD</a></li>
             <li><a href="https://scholar.google.com/citations?view_op=list_works&amp;hl=en&amp;user=JzjNeIkAAAAJ" target="_blank">Google Scholar</a></li>
             <li><a href="https://www.linkedin.com/in/falah-sheikh-3289b018b/" target="_blank">LinkedIn</a></li>
